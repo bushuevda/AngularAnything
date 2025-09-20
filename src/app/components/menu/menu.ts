@@ -9,5 +9,7 @@ import { Button } from '../button/button';
   styleUrl: './menu.css'
 })
 export class Menu {
-
+  onClick(event: MouseEvent){
+    console.log("ev", event)
+  }
 }

@@ -1,1 +1,5 @@
-<button >{{value}}</button>
+<button (click)="onClick.emit($event)" 
+        (blur)="onBlur.emit($event)" 
+        (focus)="onFocus.emit($event)"
+        [disabled]="disabled"
+        [class]="classes">{{value}}</button>

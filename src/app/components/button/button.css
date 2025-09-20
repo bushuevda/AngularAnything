@@ -1,0 +1,38 @@
+
+
+.app-button-background{
+    background-color: rgba(23, 138, 50, 0.966);
+
+}
+
+.app-button-font{
+    color: rgb(252, 246, 246);
+    font-size: 16px;
+}
+
+.app-button-border{
+    border: 2px solid black;
+}
+
+.app-button-border-rounded{
+    border-radius: 50px;
+}
+
+.app-button-size{
+    width: auto;
+    height: 40px;
+}
+
+.app-button-disabled{
+    opacity: 0.5;
+    background-color: rgb(29, 134, 54);
+}
+
+.app-button-not-disabled:hover{
+    opacity: 1;
+    background-color: rgb(18, 182, 62);
+}
+
+.app-button-not-disabled:active{
+    border-width: 1px;
+}
