@@ -64,9 +64,8 @@ export class AccordionHeader implements OnInit{
  //a p h c
  // h -> value
   onClick(){
-    console.log(this.refAccordion.value(), this.refPanel.value())
+    const currentValue = this.refAccordion.value();
     if(this.refAccordion.multiple()){
-        const currentValue = this.refAccordion.value();
         const newValue = Array.isArray(currentValue) ? [...currentValue] : [];
             const index = newValue.indexOf(this.refPanel.value() as number);
 
@@ -79,7 +78,10 @@ export class AccordionHeader implements OnInit{
             this.refAccordion.value.set(newValue as typeof this.refAccordion.value extends (...args: any) => infer R ? R : never);
 
     } else {
-        this.refAccordion.value.set(this.refPanel.value())
+        if(currentValue === this.refPanel.value())
+          this.refAccordion.value.set(undefined);
+        else
+          this.refAccordion.value.set(this.refPanel.value())
     }
   }
 

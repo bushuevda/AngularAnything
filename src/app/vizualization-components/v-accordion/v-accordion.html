@@ -9,8 +9,8 @@
 </a>
 <router-outlet></router-outlet>
 -->
-
-<app-accordion [multiple]="true">Accordion
+<div style="width: 200px;">
+<app-accordion [multiple]="false">Accordion
   <app-accordion-panel [value]="1">
     <app-accordion-header>Header 1</app-accordion-header>
     <app-accordion-content>Content 1</app-accordion-content>
@@ -24,4 +24,5 @@
     <app-accordion-content>Content 2</app-accordion-content>
   </app-accordion-panel>
 </app-accordion>
+</div>
 
