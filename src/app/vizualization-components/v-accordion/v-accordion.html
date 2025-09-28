@@ -10,12 +10,16 @@
 <router-outlet></router-outlet>
 -->
 
-<app-accordion>Accordion
-  <app-accordion-panel>
+<app-accordion [multiple]="true">Accordion
+  <app-accordion-panel [value]="1">
     <app-accordion-header>Header 1</app-accordion-header>
     <app-accordion-content>Content 1</app-accordion-content>
   </app-accordion-panel>
-  <app-accordion-panel>
+  <app-accordion-panel [value]="2">
+    <app-accordion-header>Header 2</app-accordion-header>
+    <app-accordion-content>Content 2</app-accordion-content>
+  </app-accordion-panel>
+  <app-accordion-panel [value]="3">
     <app-accordion-header>Header 2</app-accordion-header>
     <app-accordion-content>Content 2</app-accordion-content>
   </app-accordion-panel>

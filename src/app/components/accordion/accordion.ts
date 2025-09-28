@@ -1,22 +1,16 @@
-import { Component, OnInit, ContentChild , TemplateRef, inject, forwardRef} from '@angular/core';
-import { Input } from '@angular/core';
-import { CommonModule, NgTemplateOutlet } from '@angular/common';
+import { Component, OnInit, inject, forwardRef, input, model, computed} from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AngleSvgModule } from '../../icons/angle/import';
 import { Size } from '../../icons/angle/angle.base';
 
 
-
-
-
 @Component({
   selector: 'app-accordion-content',
-  template: "<div *ngIf='pcPanel.active'><ng-content/><div>",
+  template: "<div *ngIf='refPanel.active()'><ng-content/><div>",
   imports: [CommonModule]
 })
 export class AccordionContent{
-  pcPanel: AccordionPanel = inject(forwardRef(() => AccordionPanel));
-  
-
+  refPanel: AccordionPanel = inject(forwardRef(() => AccordionPanel));
 } 
 
 
@@ -27,7 +21,22 @@ export class AccordionContent{
 })
 export class AccordionPanel implements OnInit{
   classes: string[] = [];
-  public active: boolean = false;
+
+  refAccordion: Accordion = inject(forwardRef(() => Accordion));
+
+
+  active = computed(() => (this.refAccordion.multiple() ? this.valueEquals(this.refAccordion.value(), this.value()) : this.refAccordion.value() === this.value()));
+
+
+  value = model<undefined | null | number>(undefined);
+
+  valueEquals(currentValue: any, value: any): boolean {
+      if (Array.isArray(currentValue)) {
+          return currentValue.includes(value);
+      }
+      return currentValue === value;
+  }
+
   ngOnInit(): void {
     this.classes = [
       "app-accordion-panel"
@@ -38,26 +47,40 @@ export class AccordionPanel implements OnInit{
 
 @Component({
   selector: 'app-accordion-header',
-  template: "<div [class]='classes' (click)=onClick()><ng-content/><app-angle-down [size]='sizeIcon' /><div>",
+  template: "<div [class]='classes' (click)=onClick()><ng-content/><app-angle-down [size]='sizeIcon()' /><div>",
   styleUrl: './accordion.css',
   imports: [AngleSvgModule]
 })
 export class AccordionHeader implements OnInit{
 
-  @Input() sizeIcon: Size = "small";
+  sizeIcon = input<Size>("small");
 
   classes: string[] = [];
 
-  @Input() openPanel: boolean = false;
+  refAccordion: Accordion = inject(forwardRef(() => Accordion));
 
+  refPanel: AccordionPanel = inject(forwardRef(() => AccordionPanel));
 
-  pcPanel: AccordionPanel = inject(forwardRef(() => AccordionPanel));
-
+ //a p h c
+ // h -> value
   onClick(){
-    this.openPanel = !this.openPanel;
-    console.log(this.openPanel);
-    console.log(this.pcPanel.active, ' ---');
-    this.pcPanel.active = !this.pcPanel.active;
+    console.log(this.refAccordion.value(), this.refPanel.value())
+    if(this.refAccordion.multiple()){
+        const currentValue = this.refAccordion.value();
+        const newValue = Array.isArray(currentValue) ? [...currentValue] : [];
+            const index = newValue.indexOf(this.refPanel.value() as number);
+
+      if (index !== -1) {
+                newValue.splice(index, 1);
+            } else {
+                newValue.push(this.refPanel.value() as number);
+            }
+
+            this.refAccordion.value.set(newValue as typeof this.refAccordion.value extends (...args: any) => infer R ? R : never);
+
+    } else {
+        this.refAccordion.value.set(this.refPanel.value())
+    }
   }
 
   ngOnInit(): void {
@@ -68,8 +91,6 @@ export class AccordionHeader implements OnInit{
 } 
 
 
-
-
 @Component({
   selector: 'app-accordion',
   imports: [CommonModule],
@@ -78,35 +99,23 @@ export class AccordionHeader implements OnInit{
 })
 export class Accordion implements OnInit {
 
-  @Input() items: string[] = [];
-
- 
-
-  openAccordion: boolean = false;
-
-
-  classes: string[] = [];
-
-  ngOnInit(): void {
-    this.items = [
+  items = input<string[] | undefined>([
       "Значение 1",
       "Значение 2",
       "Значение 3",
       "Значение 4",
       "Значение 5",
-    ]
+  ]);
 
+  multiple = input(false);
+
+  public value = model<undefined | null | number | number[]>(undefined);
+
+  classes: string[] = [];
+
+  ngOnInit(): void {
     this.classes = [
       "app-accordion"
     ]
-
-    
-  }
-
-
-
-
-  onClick(){
-    this.openAccordion = !this.openAccordion;
   }
 }
