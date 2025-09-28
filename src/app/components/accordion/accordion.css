@@ -1,0 +1,46 @@
+
+.fade-in {
+  
+  transition: opacity 1200ms;
+  opacity: 1;
+      transform: translateY(10px);
+
+  /* initial state */
+  @starting-style {
+    opacity: 0;
+    transform: translateY(0px);
+
+  }
+}
+
+.fade-out {
+    
+  transition: opacity 300ms;
+  opacity: 0;
+    transform: translateY(20px);
+
+}
+
+
+.app-accordion{
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 255, 255);
+  color: blueviolet;
+}
+
+
+.app-accordion-panel{
+}
+
+
+.app-accordion-header{
+  border-bottom: 1px solid black;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.app-accordion-header:hover{
+  opacity: 0.5;
+}

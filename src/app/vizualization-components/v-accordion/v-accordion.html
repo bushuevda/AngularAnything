@@ -1,0 +1,23 @@
+<div><a [routerLink]="['/']" >
+  Home
+</a></div>
+<br>
+<!--
+<p>accordion works!</p>
+<a [routerLink]="['/v-accordion/cap']" >
+  link to user component
+</a>
+<router-outlet></router-outlet>
+-->
+
+<app-accordion>Accordion
+  <app-accordion-panel>
+    <app-accordion-header>Header 1</app-accordion-header>
+    <app-accordion-content>Content 1</app-accordion-content>
+  </app-accordion-panel>
+  <app-accordion-panel>
+    <app-accordion-header>Header 2</app-accordion-header>
+    <app-accordion-content>Content 2</app-accordion-content>
+  </app-accordion-panel>
+</app-accordion>
+
