@@ -1,0 +1,6 @@
+<svg style="width: {{width}}; height: {{height}};">
+  <g>
+      <line [attr.x1]="line1.x1" [attr.y1]="line1.y1" [attr.x2]="line1.x2" [attr.y2]="line1.y2" stroke="black" stroke-width="1"/>
+      <line [attr.x1]="line2.x1" [attr.y1]="line2.y1" [attr.x2]="line2.x2" [attr.y2]="line2.y2" stroke="black" stroke-width="1"/>
+  </g>
+</svg>
